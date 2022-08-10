@@ -2,7 +2,7 @@ import io
 import logging
 from enum import Enum, auto
 from queue import Queue
-from typing import Dict
+from typing import Dict, Union
 
 from telegram import Update
 from telegram.constants import ParseMode
@@ -35,7 +35,7 @@ class CompetitionManager:
         await update.message.reply_text("Hello! Please, type in your name:")
         return self.State.REGISTER
 
-    async def register(self, update: Update, _: ContextTypes.DEFAULT_TYPE) -> int | None:
+    async def register(self, update: Update, _: ContextTypes.DEFAULT_TYPE) -> Union[int, None]:
         name = update.message.text
         if self.name_exists(name):
             await update.message.reply_text("Sorry, this name is already taken."

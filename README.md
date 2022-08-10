@@ -1,5 +1,7 @@
 # Competition Bot
 
+Python-version: **3.7**
+
 `XXX` is your bot token.
 
 ```bash
