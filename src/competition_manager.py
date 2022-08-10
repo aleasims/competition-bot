@@ -106,21 +106,22 @@ class CompetitionManager:
             return
 
         logging.info(f"Starting competition {comp1} vs {comp2}...")
-        winner = Competition(comp1, comp2).run()
-        logging.info(f"Competition {comp1} vs {comp2}: winner is {winner}")
+        result = Competition(comp1, comp2).run()
+        logging.info(f"Competition {comp1} vs {comp2}: {result}")
 
-        reply = f"You took part in a competition against `{comp2.name}`. Winner: `{winner.name}`."
+        reply = f"You took part in a competition against `{comp2.name}`. Result: `{result}`."
         await update.message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
-        reply = f"You took part in a competition against `{comp1.name}`. Winner: `{winner.name}`."
+        reply = f"You took part in a competition against `{comp1.name}`. Result: `{result}`."
         await context.bot.send_message(comp2.chat, reply, parse_mode=ParseMode.MARKDOWN)
 
     async def single(self, update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
         competitor = self.competitors[update.message.chat_id]
         logging.info(f"Starting {competitor} single competition...")
-        Competition(competitor, competitor).run()
-        logging.info(f"{competitor} single competition ended")
+        result = Competition(competitor, competitor).run()
+        logging.info(f"{competitor} single competition ended. Result: {result}")
 
-        await update.message.reply_text("You completed a single-mode competition.")
+        await update.message.reply_text(f"You completed a single-mode "
+                                        f"competition.Result: {result}")
 
     async def stop(self, update: Update, _: ContextTypes.DEFAULT_TYPE) -> int:
         chat = update.message.chat_id
