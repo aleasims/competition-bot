@@ -84,7 +84,7 @@ async def get_data(update: Update, _: ContextTypes.DEFAULT_TYPE) -> int:
     return State.COMPETITION_CLAIM
 
 
-async def compete(update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
+async def compete(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat = update.message.chat_id
     comp1 = competitors[chat]
     global queue
@@ -101,6 +101,8 @@ async def compete(update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
             winner = run_competition(comp1, comp2)
             reply = f"You took part in a competition against `{comp2.name}`. Winner: `{winner.name}`."
             await update.message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
+            reply = f"You took part in a competition against `{comp1.name}`. Winner: `{winner.name}`."
+            await context.bot.send_message(comp2.chat, reply, parse_mode=ParseMode.MARKDOWN)
 
 
 async def single(update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
