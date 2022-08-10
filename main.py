@@ -12,7 +12,7 @@ logging.basicConfig(
 
 if __name__ == '__main__':
     with open("TOKEN") as f:
-        TOKEN = f.read()
+        TOKEN = f.read().strip()
 
     app = Application.builder().concurrent_updates(False).token(TOKEN).build()
 
